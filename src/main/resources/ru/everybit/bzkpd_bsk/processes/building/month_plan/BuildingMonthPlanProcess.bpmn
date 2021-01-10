@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://activiti.org/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" id="_6bqi4PWhEeSfF__QE8FsmA" exporter="camunda modeler" exporterVersion="2.7.0" targetNamespace="http://activiti.org/bpmn">
+  <bpmn2:collaboration id="_Collaboration_5">
+    <bpmn2:participant id="Participant" name="План строительства на месяц" processRef="BuildingMonthPlanProcess"/>
+  </bpmn2:collaboration>
+  <bpmn2:process id="BuildingMonthPlanProcess" name="План работ на месяц" isExecutable="true">
+    <bpmn2:laneSet id="LaneSet_1" name="Lane Set 1">
+      <bpmn2:lane id="PtoBskEmployeeLane" name="Сотрудник ПТО БСК">
+        <bpmn2:flowNodeRef>StartEvent</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>CreateBuildingMonthPlanUserTask</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>ControlBuildingMonthPlanUserTask</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>EndEvent</bpmn2:flowNodeRef>
+      </bpmn2:lane>
+      <bpmn2:lane id="PtoBzkpdManagerLane" name="Начальник ПТО БЗКПД">
+        <bpmn2:flowNodeRef>ApproveBuildingMonthPlanUserTask</bpmn2:flowNodeRef>
+      </bpmn2:lane>
+    </bpmn2:laneSet>
+    <bpmn2:startEvent id="StartEvent">
+      <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" name="" sourceRef="StartEvent" targetRef="CreateBuildingMonthPlanUserTask"/>
+    <bpmn2:userTask id="CreateBuildingMonthPlanUserTask" camunda:candidateGroups="PtoBskEmployee" camunda:formKey="ru.everybit.bzkpd_bsk.processes.building.month_plan.CreateBuildingMonthPlanForm" name="Создание заявки на строительство">
+      <bpmn2:documentation>Создание плана строительства на месяц</bpmn2:documentation>
+      <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="CreateBuildingMonthPlanUserTask" targetRef="ApproveBuildingMonthPlanUserTask"/>
+    <bpmn2:userTask id="ControlBuildingMonthPlanUserTask" camunda:formKey="ru.everybit.bzkpd_bsk.processes.building.month_plan.ControlBuildingMonthPlanForm" camunda:candidateGroups="PtoBskEmployee" name="Выполнение заявки на строительство">
+      <bpmn2:documentation>План работ на месяц для производства</bpmn2:documentation>
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="ControlBuildingMonthPlanUserTask" targetRef="EndEvent"/>
+    <bpmn2:endEvent id="EndEvent">
+      <bpmn2:extensionElements>
+        <camunda:executionListener class="ru.everybit.bzkpd_bsk.application.service.case_management.BpmCaseManagementEndListener" event="end"/>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:userTask id="ApproveBuildingMonthPlanUserTask" camunda:candidateGroups="PtoBzkpdManager" camunda:formKey="ru.everybit.bzkpd_bsk.processes.building.month_plan.ApproveBuildingMonthPlanForm" name="Согласование заявки на строительство">
+      <bpmn2:documentation>Согласование плана строительства на месяц</bpmn2:documentation>
+      <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="ApproveBuildingMonthPlanUserTask" targetRef="ControlBuildingMonthPlanUserTask"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="_Collaboration_5">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_39" bpmnElement="StartEvent">
+        <dc:Bounds height="36.0" width="36.0" x="72.0" y="55.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="90.0" y="96.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_37" bpmnElement="EndEvent">
+        <dc:Bounds height="36.0" width="36.0" x="624.0" y="55.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="642.0" y="96.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_53" bpmnElement="ControlBuildingMonthPlanUserTask">
+        <dc:Bounds height="103.0" width="148.0" x="420.0" y="21.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="_BPMNShape_UserTask_53" targetElement="_BPMNShape_EndEvent_37">
+        <di:waypoint xsi:type="dc:Point" x="568.0" y="72.0"/>
+        <di:waypoint xsi:type="dc:Point" x="605.0" y="72.0"/>
+        <di:waypoint xsi:type="dc:Point" x="605.0" y="73.0"/>
+        <di:waypoint xsi:type="dc:Point" x="624.0" y="73.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="573.0" y="72.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_57" bpmnElement="CreateBuildingMonthPlanUserTask">
+        <dc:Bounds height="103.0" width="157.0" x="144.0" y="21.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_58" bpmnElement="ApproveBuildingMonthPlanUserTask">
+        <dc:Bounds height="108.0" width="157.0" x="144.0" y="180.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="_BPMNShape_StartEvent_39" targetElement="_BPMNShape_UserTask_57">
+        <di:waypoint xsi:type="dc:Point" x="108.0" y="73.0"/>
+        <di:waypoint xsi:type="dc:Point" x="126.0" y="73.0"/>
+        <di:waypoint xsi:type="dc:Point" x="126.0" y="72.0"/>
+        <di:waypoint xsi:type="dc:Point" x="144.0" y="72.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="117.0" y="73.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4" sourceElement="_BPMNShape_UserTask_57" targetElement="_BPMNShape_UserTask_58">
+        <di:waypoint xsi:type="dc:Point" x="222.0" y="123.0"/>
+        <di:waypoint xsi:type="dc:Point" x="222.0" y="180.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="219.0" y="136.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_Participant_5" bpmnElement="Participant" isHorizontal="true">
+        <dc:Bounds height="313.0" width="685.0" x="0.0" y="0.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_Lane_7" bpmnElement="PtoBskEmployeeLane" isHorizontal="true">
+        <dc:Bounds height="157.0" width="655.0" x="30.0" y="0.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_Lane_8" bpmnElement="PtoBzkpdManagerLane" isHorizontal="true">
+        <dc:Bounds height="157.0" width="655.0" x="30.0" y="156.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="_BPMNShape_UserTask_58" targetElement="_BPMNShape_UserTask_53">
+        <di:waypoint xsi:type="dc:Point" x="300.0" y="234.0"/>
+        <di:waypoint xsi:type="dc:Point" x="360.0" y="234.0"/>
+        <di:waypoint xsi:type="dc:Point" x="360.0" y="72.0"/>
+        <di:waypoint xsi:type="dc:Point" x="420.0" y="72.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="357.0" y="153.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

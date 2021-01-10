@@ -1,0 +1,2 @@
+drop sequence bpm_building_plan_item_id_sequence;
+drop table bpm_building_plan_item;

@@ -1,0 +1,2 @@
+alter table bpm_transfer_to_stock_item add column bpm_building_plan_item_id
+integer not null references bpm_building_plan_item on delete restrict;

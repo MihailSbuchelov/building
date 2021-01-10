@@ -1,0 +1,9 @@
+CREATE SEQUENCE BPM_BUILDING_OBJECT_SEQUENCE;
+
+create table BPM_BUILDING_OBJECT (
+    ID integer NOT NULL,
+    OBJECT varchar(2048) NULL,
+    PROJECT_OFFICE varchar(2048) NULL,
+    primary key (ID)
+);
+

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context>
+    <Resource name="jdbc/PostgreSQLDS"
+              url="jdbc:postgresql://localhost:5432/bpm_building"
+              driverClassName="org.postgresql.Driver"
+              username="${POSTGRESQL_DB_USERNAME}"
+              password="${POSTGRESQL_DB_PASSWORD}"
+              auth="Container"
+              type="javax.sql.DataSource"
+              maxActive="20"
+              maxIdle="5"
+              maxWait="10000"/>
+</Context>

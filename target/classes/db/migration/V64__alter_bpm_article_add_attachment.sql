@@ -1,0 +1,1 @@
+alter table bpm_article add column BPM_IMAGE_ATTACHMENT_ID integer references bpm_attachment on delete restrict;

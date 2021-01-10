@@ -1,0 +1,11 @@
+@import "addons.scss";
+@import "bpm_building.scss";
+
+/* This file prefixes all rules with the theme name to avoid causing conflicts with other themes. */
+/* The actual styles should be defined in bpm_building.scss */
+.bpm_building {
+  @include addons;
+
+  // Include bpm_building theme styles in your theme
+  @include bpm_building;
+}

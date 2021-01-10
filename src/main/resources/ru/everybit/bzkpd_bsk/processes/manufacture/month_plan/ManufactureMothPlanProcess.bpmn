@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://activiti.org/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" id="_d14JgACqEeWEHpmOBpkb0w" exporter="camunda modeler" exporterVersion="2.7.0" targetNamespace="http://activiti.org/bpmn">
+  <bpmn2:collaboration id="_Collaboration_7">
+    <bpmn2:participant id="ManufactureMonthPlanParticipant" name="Производство деталей" processRef="ManufactureMonthPlanProcess"/>
+  </bpmn2:collaboration>
+  <bpmn2:process id="ManufactureMonthPlanProcess" name="Производство деталей за месяц" isExecutable="true">
+    <bpmn2:laneSet id="LaneSet_1" name="Lane Set 1">
+      <bpmn2:lane id="Lane" name="Начальник ПТО БЗКПД">
+        <bpmn2:flowNodeRef>EndEvent</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>ControlManufactureMonthPlanUserTask</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>CreateManufacturePlanUserTask</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>StartEvent</bpmn2:flowNodeRef>
+      </bpmn2:lane>
+    </bpmn2:laneSet>
+    <bpmn2:endEvent id="EndEvent">
+      <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:userTask id="ControlManufactureMonthPlanUserTask" camunda:formKey="ru.everybit.bzkpd_bsk.processes.manufacture.month_plan.control.ControlManufactureMonthPlanForm" camunda:candidateGroups="PtoBzkpdManager" name="Выполнение плана производства на месяц">
+      <bpmn2:documentation>Выполнение плана производства на месяц</bpmn2:documentation>
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" name="" sourceRef="ControlManufactureMonthPlanUserTask" targetRef="EndEvent"/>
+    <bpmn2:userTask id="CreateManufacturePlanUserTask" camunda:candidateGroups="PtoBzkpdManager" camunda:formKey="ru.everybit.bzkpd_bsk.processes.manufacture.month_plan.create.CreateManufacturePlanForm" name="Создание плана производства на месяц">
+      <bpmn2:documentation>Создание плана производства на месяц</bpmn2:documentation>
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="CreateManufacturePlanUserTask" targetRef="ControlManufactureMonthPlanUserTask"/>
+    <bpmn2:startEvent id="StartEvent">
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="StartEvent" targetRef="CreateManufacturePlanUserTask"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="_Collaboration_7">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_41" bpmnElement="StartEvent">
+        <dc:Bounds height="36.0" width="36.0" x="72.0" y="80.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="90.0" y="121.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_39" bpmnElement="EndEvent">
+        <dc:Bounds height="36.0" width="36.0" x="516.0" y="80.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="534.0" y="121.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_59" bpmnElement="CreateManufacturePlanUserTask">
+        <dc:Bounds height="99.0" width="121.0" x="168.0" y="48.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_60" bpmnElement="ControlManufactureMonthPlanUserTask">
+        <dc:Bounds height="99.0" width="121.0" x="348.0" y="48.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="_BPMNShape_StartEvent_41" targetElement="_BPMNShape_UserTask_59">
+        <di:waypoint xsi:type="dc:Point" x="108.0" y="98.0"/>
+        <di:waypoint xsi:type="dc:Point" x="155.0" y="98.0"/>
+        <di:waypoint xsi:type="dc:Point" x="155.0" y="97.0"/>
+        <di:waypoint xsi:type="dc:Point" x="168.0" y="97.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="120.0" y="98.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="_BPMNShape_UserTask_59" targetElement="_BPMNShape_UserTask_60">
+        <di:waypoint xsi:type="dc:Point" x="288.0" y="97.0"/>
+        <di:waypoint xsi:type="dc:Point" x="348.0" y="97.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="319.0" y="97.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="_BPMNShape_UserTask_60" targetElement="_BPMNShape_EndEvent_39">
+        <di:waypoint xsi:type="dc:Point" x="468.0" y="97.0"/>
+        <di:waypoint xsi:type="dc:Point" x="487.0" y="97.0"/>
+        <di:waypoint xsi:type="dc:Point" x="487.0" y="98.0"/>
+        <di:waypoint xsi:type="dc:Point" x="516.0" y="98.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="498.0" y="98.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_Participant_7" bpmnElement="ManufactureMonthPlanParticipant" isHorizontal="true">
+        <dc:Bounds height="217.0" width="607.0" x="0.0" y="0.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_Lane_11" bpmnElement="Lane" isHorizontal="true">
+        <dc:Bounds height="217.0" width="577.0" x="30.0" y="0.0"/>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
