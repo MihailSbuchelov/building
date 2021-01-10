@@ -1,2 +1,0 @@
-drop table bpm_manufacture_day_plan_line_item;
-drop sequence bpm_manufacture_day_plan_line_item_id_sequence;

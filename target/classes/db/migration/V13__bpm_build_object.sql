@@ -1,1 +1,0 @@
-alter table bpm_building_object add column address text;

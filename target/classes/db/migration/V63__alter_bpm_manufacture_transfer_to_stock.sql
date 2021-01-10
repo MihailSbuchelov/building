@@ -1,1 +1,0 @@
-alter table bpm_transfer_to_stock drop column day;
