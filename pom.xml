@@ -26,7 +26,8 @@
         </repository>
         <repository>
             <id>central</id>
-            <url>http://central.maven.org/maven2</url>
+<!--            <url>http://central.maven.org/maven2</url>-->
+            <url>https://repo1.maven.org/maven2/</url>
         </repository>
         <repository>
             <id>eap</id>
@@ -216,7 +217,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-war-plugin</artifactId>
-                        <version>2.1.1</version>
+                        <version>2.2</version>
                         <configuration>
                             <outputDirectory>webapps</outputDirectory>
                             <warName>ROOT</warName>
